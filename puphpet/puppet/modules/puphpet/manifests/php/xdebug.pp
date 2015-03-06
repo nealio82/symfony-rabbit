@@ -21,8 +21,14 @@ class puphpet::php::xdebug (
   } else {
     # php 5.6 requires xdebug be compiled, for now
     case $::operatingsystem {
-      'debian': {$mod_dir = '/usr/lib/php5/20131226-zts'}
-      'ubuntu': {$mod_dir = '/usr/lib/php5/20131226'}
+      # Debian and Ubuntu slightly differ
+      'debian', 'ubuntu': {
+        if is_dir('/usr/lib/php5/20131226-zts') {
+          $mod_dir = '/usr/lib/php5/20131226-zts'
+        } else {
+          $mod_dir = '/usr/lib/php5/20131226'
+        }
+      }
       'redhat', 'centos': {$mod_dir = '/usr/lib64/php/modules'}
     }
 
@@ -34,7 +40,7 @@ class puphpet::php::xdebug (
       creates => '/.puphpet-stuff/xdebug/configure',
       cwd     => '/.puphpet-stuff/xdebug',
     }
-    -> exec { "cp /.puphpet-stuff/xdebug/modules/xdebug.so ${mod_dir}":
+    -> exec { "cp /.puphpet-stuff/xdebug/modules/xdebug.so ${mod_dir}/xdebug.so":
       creates => "${mod_dir}/xdebug.so",
     }
 
@@ -43,7 +49,7 @@ class puphpet::php::xdebug (
       value       => "${mod_dir}/xdebug.so",
       php_version => '5.6',
       webserver   => $webserver,
-      require     => Exec["cp /.puphpet-stuff/xdebug/modules/xdebug.so ${mod_dir}"],
+      require     => Exec["cp /.puphpet-stuff/xdebug/modules/xdebug.so ${mod_dir}/xdebug.so"],
     }
   }
 

@@ -149,6 +149,7 @@ php:
             - cli
             - intl
             - mcrypt
+            - curl
         pear: {  }
         pecl:
             - pecl_http
@@ -156,7 +157,7 @@ php:
         display_errors: On
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
-    timezone: America/Chicago
+    timezone: Europe/London
     mod_php: 0
 hhvm:
     install: '0'
@@ -171,7 +172,7 @@ hhvm:
         error_reporting: '-1'
     timezone: null
 xdebug:
-    install: '0'
+    install: '1'
     settings:
         xdebug.default_enable: '1'
         xdebug.remote_autostart: '0'
@@ -206,9 +207,9 @@ mysql:
         2tg61jfyGqJ1:
             grant:
                 - ALL
-            name: dbname
+            name: symfony-rabbit
             host: localhost
-            user: dbuser
+            user: symfony
             password: '123'
             sql_file: ''
 postgresql:
