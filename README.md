@@ -27,8 +27,8 @@ Once done, you should be able to go to <http://dev.symfony-rabbit> in your brows
 
 The RabbitMQ admin panel has also been installed and will be available at <http://dev.symfony-rabbit:15672>.
 
-The username is 'symfony'
-The password is 'rabbit'
+* The username is 'symfony'
+* The password is 'rabbit'
 
 Using Vagrant
 ----
