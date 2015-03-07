@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+
+    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+    <title>{% block title %}Symfony with RabbitMQ{% endblock %}</title>
+    {% block stylesheets %}
+        {% stylesheets
+        'bundles/app/css/*'
+        filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+<header role="banner" id="top" class="navbar navbar-static-top bs-docs-nav">
+    <div class="container">
+
+        <nav class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="https://www.symfony.com">Symfony</a>
+                </li>
+                <li>
+                    <a href="https://www.rabbitmq.com/documentation.html">RabbitMQ Docs</a>
+                </li>
+                <li>
+                    <a href="http://www.nealio.co.uk">Nealio.co.uk</a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</header>
+
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
+<script src="{{ asset('js/jquery.js') }}"></script>
+<!-- Include all JavaScripts, compiled by Assetic -->
+<script src="{{ asset('js/bootstrap.js') }}"></script>
+
+</body>
+</html>

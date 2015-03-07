@@ -1,0 +1,17 @@
+/example/web/bundles/
+/example/app/bootstrap.php.cache
+/example/app/cache/*
+/example/app/config/parameters.yml
+/example/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/example/app/phpunit.xml
+/example/build/
+/example/vendor/
+/example/bin/
+/example/web/images/
+/example/web/css/
+/example/web/js/
+example/composer.phar
+.idea/
+.vagrant/

@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <main role="main" id="content" class="bs-docs-masthead">
+        <div class="container">
+            {#<span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">#}
+
+
+            {% image '@AppBundle/Resources/public/images/Symfony.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+            {% image '@AppBundle/Resources/public/images/RabbitMQ.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+
+
+            {#</span>#}
+
+            <p class="lead">Symfony and RabbitMQ makes things faster!</p>
+
+            <p class="lead">
+                <a class="btn btn-outline-inverse btn-lg" href="">Read the article</a>
+            </p>
+
+
+        </div>
+
+        <div class="row">
+            <a class="btn btn-default" href="{{ path('produce') }}">Consume now</a>
+            <a class="btn btn-default" href="{{ path('delay') }}">Delay the queue</a>
+        </div>
+
+    </main>
+    <div class="bs-docs-featurette">
+        <div class="container">
+
+            <p>
+                You should make sure you have the consumer running in a terminal window before you queue anything, or
+                you won't see much happen ;)
+            </p>
+
+        </div>
+    </div>
+
+{% endblock %}

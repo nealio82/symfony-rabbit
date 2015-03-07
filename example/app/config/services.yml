@@ -1,0 +1,24 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+      email_queue:
+          class: AppBundle\Rabbit\Queue\Producer
+          arguments:
+              - @old_sound_rabbit_mq.queue_email_producer
+
+      delay_queue:
+          class: AppBundle\Rabbit\Queue\Producer
+          arguments:
+              - @old_sound_rabbit_mq.delay_email_producer
+
+      send_email:
+          class: AppBundle\Rabbit\Queue\Consumer
+          arguments:
+              - @logger
