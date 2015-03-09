@@ -8,17 +8,17 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
-      email_queue:
+      api_call_queue:
           class: AppBundle\Rabbit\Queue\Producer
           arguments:
-              - @old_sound_rabbit_mq.queue_email_producer
+              - @old_sound_rabbit_mq.api_call_producer
 
       delay_queue:
           class: AppBundle\Rabbit\Queue\Producer
           arguments:
-              - @old_sound_rabbit_mq.delay_email_producer
+              - @old_sound_rabbit_mq.delay_api_call_producer
 
-      send_email:
+      make_api_call:
           class: AppBundle\Rabbit\Queue\Consumer
           arguments:
               - @logger

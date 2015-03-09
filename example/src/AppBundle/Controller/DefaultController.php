@@ -22,14 +22,15 @@ class DefaultController extends Controller
     public function produceAction()
     {
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 20; $i++) {
 
             $msg = new \stdClass();
 
-            $msg->subject = "Instant message";
-            $msg->body = "Test message " . uniqid();
+            $msg->handle = "@nealio82";
+            $msg->endpoint = "/statuses/update";
+            $msg->text = "Tweet " . uniqid();
 
-            $this->get('email_queue')->publish(json_encode($msg));
+            $this->get('api_call_queue')->publish(json_encode($msg));
 
         }
 
@@ -44,14 +45,15 @@ class DefaultController extends Controller
     {
 
         // Sometimes you might want to delay the queue for a bit, for example if you are
-        // testing for hitting an API rate limit and need to relax your calls for 15 minutes
+        // testing for hitting an API rate limit and need to relax your eagerness for 15 minutes
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10; $i++) {
 
             $msg = new \stdClass();
 
-            $msg->subject = "Delayed message";
-            $msg->body = "Delayed message " . uniqid();
+            $msg->handle = "@nealio82";
+            $msg->endpoint = "/statuses/show/" . uniqid();
+            $msg->text = "Delayed API call " . uniqid();
 
             $this->get('delay_queue')->publish(json_encode($msg));
         }

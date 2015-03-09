@@ -110,20 +110,20 @@ old_sound_rabbit_mq:
 
     producers:
 
-        queue_email:
+        api_call:
             connection:       default
-            exchange_options: {name: 'email', type: fanout}
-            queue_options:    {name: 'email'}
+            exchange_options: {name: 'api_call', type: fanout}
+            queue_options:    {name: 'api_call'}
 
-        delay_email:
+        delay_api_call:
             connection:       default
-            exchange_options: {name: 'delay_email', type: fanout}
-            queue_options:    {name: 'delay_email', arguments: {'x-message-ttl': ['I', 20000], 'x-dead-letter-exchange': ['S', 'email'], 'x-dead-letter-routing-key': ['S', 'email']}}
+            exchange_options: {name: 'delay_api_call', type: fanout}
+            queue_options:    {name: 'delay_api_call', arguments: {'x-message-ttl': ['I', 20000], 'x-dead-letter-exchange': ['S', 'api_call'], 'x-dead-letter-routing-key': ['S', 'api_call']}}
 
     consumers:
 
-        send_email:
+        make_api_call:
             connection:       default
-            exchange_options: {name: 'email', type: fanout}
-            queue_options:    {name: 'email'}
-            callback:         send_email
+            exchange_options: {name: 'api_call', type: fanout}
+            queue_options:    {name: 'api_call'}
+            callback:         make_api_call

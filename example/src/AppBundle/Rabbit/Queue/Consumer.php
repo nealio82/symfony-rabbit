@@ -17,7 +17,7 @@ class Consumer implements ConsumerInterface
 
         $payload = json_decode(unserialize($message->body));
 
-        echo sprintf("Consumed: '%s'\n", $payload->body);
+        echo sprintf("Calling %s for %s with: '%s'\n", $payload->endpoint, $payload->handle, $payload->text);
 
     }
 
