@@ -1735,12 +1735,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/videlalvaro/RabbitMqBundle.git",
-                "reference": "a15a4eba67324a24234280ace0afb5fc45605f3b"
+                "reference": "0e57b98cd0a5c6eb4de7865856ba221e999beb7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/RabbitMqBundle/zipball/a15a4eba67324a24234280ace0afb5fc45605f3b",
-                "reference": "a15a4eba67324a24234280ace0afb5fc45605f3b",
+                "url": "https://api.github.com/repos/videlalvaro/RabbitMqBundle/zipball/0e57b98cd0a5c6eb4de7865856ba221e999beb7e",
+                "reference": "0e57b98cd0a5c6eb4de7865856ba221e999beb7e",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1750,8 @@
                 "videlalvaro/php-amqplib": "~2.4.0"
             },
             "require-dev": {
-                "symfony/console": "~2.0"
+                "symfony/console": "~2.0",
+                "symfony/serializer": "~2.6"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1779,7 +1780,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2015-01-28 16:22:31"
+            "time": "2015-03-10 15:49:22"
         },
         {
             "name": "sensio/generator-bundle",

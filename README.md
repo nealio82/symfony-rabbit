@@ -45,5 +45,5 @@ Running the consumer
 ----
 
 * If using Vagrant, open an ssh connection to the Vagrant machine (see above) and navigate to /var/www/
-* Run <code>php app/console rabbitmq:consume -w send_email</code>
+* Run <code>php app/console rabbitmq:consume -w make_api_call</code>
 * Go to <http://dev.symfony-rabbit> in your browser and click 'consume now' or 'delay queue'. Keep an eye on the terminal window with the consumer running.

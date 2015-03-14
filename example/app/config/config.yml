@@ -112,18 +112,26 @@ old_sound_rabbit_mq:
 
         api_call:
             connection:       default
-            exchange_options: {name: 'api_call', type: fanout}
-            queue_options:    {name: 'api_call'}
+            exchange_options: {name: 'api_call', type: direct}
+            queue_options:
+                name: 'api_call_queue'
+                routing_keys:
+                    - 'api_call_queue'
 
         delay_api_call:
             connection:       default
-            exchange_options: {name: 'delay_api_call', type: fanout}
-            queue_options:    {name: 'delay_api_call', arguments: {'x-message-ttl': ['I', 20000], 'x-dead-letter-exchange': ['S', 'api_call'], 'x-dead-letter-routing-key': ['S', 'api_call']}}
+            exchange_options: {name: 'delay_api_call', type: direct}
+            queue_options:
+                name: 'delay_api_call'
+                arguments:
+                    'x-message-ttl': ['I', 20000]
+                    'x-dead-letter-exchange': ['S', 'api_call']
+                    'x-dead-letter-routing-key': ['S', 'api_call_queue']
 
     consumers:
 
         make_api_call:
             connection:       default
-            exchange_options: {name: 'api_call', type: fanout}
-            queue_options:    {name: 'api_call'}
+            exchange_options: {name: 'api_call', type: direct}
+            queue_options:    {name: 'api_call_queue'}
             callback:         make_api_call
