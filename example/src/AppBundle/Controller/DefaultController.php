@@ -45,14 +45,14 @@ class DefaultController extends Controller
     {
 
         // Sometimes you might want to delay the queue for a bit, for example if you are
-        // testing for hitting an API rate limit and need to relax your eagerness for 15 minutes
+        // testing for hitting an API rate limit and need to reign in your enthusiasm for 15 minutes
 
         for ($i = 0; $i < 10; $i++) {
 
             $msg = new \stdClass();
 
             $msg->handle = "@nealio82";
-            $msg->endpoint = "/statuses/show/" . uniqid();
+            $msg->endpoint = "/statuses/update/" . uniqid();
             $msg->text = "Delayed API call " . uniqid();
 
             $this->get('delay_queue')->publish(json_encode($msg));

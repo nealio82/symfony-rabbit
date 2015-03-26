@@ -20,5 +20,3 @@ services:
 
       make_api_call:
           class: AppBundle\Rabbit\Queue\Consumer
-          arguments:
-              - @logger

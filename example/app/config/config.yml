@@ -114,24 +114,24 @@ old_sound_rabbit_mq:
             connection:       default
             exchange_options: {name: 'api_call', type: direct}
             queue_options:
-                name: 'api_call_queue'
+                name: 'statuses/update'
                 routing_keys:
-                    - 'api_call_queue'
+                    - 'statuses/update'
 
         delay_api_call:
             connection:       default
             exchange_options: {name: 'delay_api_call', type: direct}
             queue_options:
-                name: 'delay_api_call'
+                name: 'statuses/update/delay'
                 arguments:
                     'x-message-ttl': ['I', 20000]
                     'x-dead-letter-exchange': ['S', 'api_call']
-                    'x-dead-letter-routing-key': ['S', 'api_call_queue']
+                    'x-dead-letter-routing-key': ['S', 'statuses/update']
 
     consumers:
 
         make_api_call:
             connection:       default
             exchange_options: {name: 'api_call', type: direct}
-            queue_options:    {name: 'api_call_queue'}
+            queue_options:    {name: 'statuses/update'}
             callback:         make_api_call
