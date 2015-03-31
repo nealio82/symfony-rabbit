@@ -26,9 +26,9 @@ class DefaultController extends Controller
 
             $msg = new \stdClass();
 
-            $msg->handle = "@nealio82";
-            $msg->endpoint = "/statuses/update";
-            $msg->text = "Tweet " . uniqid();
+            $msg->handle = '@nealio82';
+            $msg->endpoint = '/statuses/update';
+            $msg->text = 'Tweet ' . uniqid();
 
             $this->get('api_call_queue')->publish(json_encode($msg));
 
@@ -51,9 +51,9 @@ class DefaultController extends Controller
 
             $msg = new \stdClass();
 
-            $msg->handle = "@nealio82";
-            $msg->endpoint = "/statuses/update/" . uniqid();
-            $msg->text = "Delayed API call " . uniqid();
+            $msg->handle = '@nealio82';
+            $msg->endpoint = '/statuses/update/' . uniqid();
+            $msg->text = 'Delayed API call ' . uniqid();
 
             $this->get('delay_queue')->publish(json_encode($msg));
         }
