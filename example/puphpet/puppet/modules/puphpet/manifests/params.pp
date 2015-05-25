@@ -33,35 +33,17 @@ class puphpet::params {
   }
 
   #########################################################
-  # APACHE
-  #########################################################
-  $apache_webroot_location = $::osfamily ? {
-    'Debian' => '/var/www/html',
-    'Redhat' => '/var/www/html'
-  }
-
-  $apache_mod_pagespeed_url = $::osfamily ? {
-    'Debian' => $::architecture ? {
-        'i386'   => 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.deb',
-        'amd64'  => 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb',
-        'x86_64' => 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb'
-      },
-    'Redhat' => $::architecture ? {
-        'i386'   => 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.rpm',
-        'amd64'  => 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_x86_64.rpm',
-        'x86_64' => 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_x86_64.rpm'
-      },
-  }
-
-  $apache_mod_pagespeed_package = 'mod-pagespeed-stable'
-
-  #########################################################
   # NGINX
   #########################################################
 
   $nginx_default_conf_location = $::osfamily ? {
     'Debian' => '/etc/nginx/conf.d/default.conf',
     'Redhat' => '/etc/nginx/conf.d/default.conf'
+  }
+
+  $nginx_www_location = $::osfamily ? {
+    'Debian' => '/var/www',
+    'Redhat' => '/var/www'
   }
 
   $nginx_webroot_location = $::osfamily ? {

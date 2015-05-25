@@ -11,14 +11,16 @@ class puphpet::php::xdebug (
     $notify_service = []
   }
 
-  if !$compile and ! defined(Package[$puphpet::params::xdebug_package]) {
+  if !$compile and ! defined(Package[$puphpet::params::xdebug_package])
+    and $puphpet::php::settings::enable_xdebug
+  {
     package { 'xdebug':
       name    => $puphpet::params::xdebug_package,
       ensure  => installed,
       require => Package['php'],
       notify  => $notify_service,
     }
-  } else {
+  } elsif $puphpet::php::settings::enable_xdebug {
     # php 5.6 requires xdebug be compiled, for now
     case $::operatingsystem {
       # Debian and Ubuntu slightly differ
@@ -32,9 +34,12 @@ class puphpet::php::xdebug (
       'redhat', 'centos': {$mod_dir = '/usr/lib64/php/modules'}
     }
 
-    exec { 'git clone https://github.com/xdebug/xdebug.git /.puphpet-stuff/xdebug':
-      creates => '/.puphpet-stuff/xdebug',
-      require => Class['Php::Devel'],
+    vcsrepo { '/.puphpet-stuff/xdebug':
+      ensure   => present,
+      provider => git,
+      source   => 'https://github.com/xdebug/xdebug.git',
+      revision => 'XDEBUG_2_3_1',
+      require  => Class['Php::Devel']
     }
     -> exec { 'phpize && ./configure --enable-xdebug && make':
       creates => '/.puphpet-stuff/xdebug/configure',
@@ -54,7 +59,9 @@ class puphpet::php::xdebug (
   }
 
   # shortcut for xdebug CLI debugging
-  if $install_cli and defined(File['/usr/bin/xdebug']) == false {
+  if $install_cli and defined(File['/usr/bin/xdebug']) == false
+    and $puphpet::php::settings::enable_xdebug
+  {
     file { '/usr/bin/xdebug':
       ensure  => present,
       mode    => '+X',

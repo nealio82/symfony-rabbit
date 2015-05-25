@@ -1,23 +1,24 @@
----
-vagrantfile-local:
+vagrantfile:
+    target: local
     vm:
-        box: puphpet/debian75-x64
-        box_url: puphpet/debian75-x64
-        hostname: ''
+        box: puphpet/ubuntu1404-x64
+        box_url: puphpet/ubuntu1404-x64
+        hostname: local.puphpet
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
         network:
-            private_network: 192.168.56.105
+            private_network: 192.168.56.101
             forwarded_port:
-                ItXVxl4D7jf7:
-                    host: '7981'
+                vflnp_t6vxw9elf8wt:
+                    host: '5190'
                     guest: '22'
         post_up_message: ''
         provider:
             virtualbox:
                 modifyvm:
                     natdnshostresolver1: on
+                showgui: '0'
             vmware:
                 numvcpus: 1
             parallels:
@@ -32,12 +33,14 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            o0EHGFKi53Il:
-                owner: www-data
-                group: www-data
+            vflsf_riyet08pgiv7:
                 source: ./
                 target: /var/www
                 sync_type: default
+                smb:
+                    smb_host: ''
+                    smb_username: ''
+                    smb_password: ''
                 rsync:
                     args:
                         - '--verbose'
@@ -45,7 +48,10 @@ vagrantfile-local:
                         - '-z'
                     exclude:
                         - .vagrant/
-                    auto: 'false'
+                        - .git/
+                    auto: 'true'
+                owner: www-data
+                group: www-data
         usable_port_range:
             start: 10200
             stop: 10500
@@ -69,14 +75,37 @@ users_groups:
     install: '1'
     groups: {  }
     users: {  }
-cron:
-    install: '1'
-    jobs: {  }
 firewall:
     install: '1'
     rules: {  }
+cron:
+    install: '1'
+    jobs: {  }
+nginx:
+    install: '1'
+    settings:
+        default_vhost: 1
+        proxy_buffer_size: 128k
+        proxy_buffers: '4 256k'
+    upstreams: {  }
+    vhosts:
+        nxv_eoscvjv4tf64:
+            server_name: dev.symfony-rabbit
+            www_root: /var/www/symfony-rabbit
+            listen_port: '80'
+            index_files:
+                - index.php
+                - app.php
+            client_max_body_size: 1m
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_port: ''
+            ssl_protocols: ''
+            ssl_ciphers: ''
+    proxies: {  }
 apache:
-    install: 0
+    install: '0'
     settings:
         user: www-data
         group: www-data
@@ -87,7 +116,7 @@ apache:
     modules:
         - rewrite
     vhosts:
-        t2rkomxd9fop:
+        av_5jr2e82ig6c1:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
@@ -95,9 +124,16 @@ apache:
             port: '80'
             setenv:
                 - 'APP_ENV dev'
+            custom_fragment: ''
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+            ssl_protocol: ''
+            ssl_cipher: ''
             directories:
-                ku2kjicv3abh:
-                    provider: directory
+                avd_8x6p1vrd30ok:
                     path: /var/www/awesome
                     options:
                         - Indexes
@@ -109,41 +145,11 @@ apache:
                         - all
                         - granted
                     custom_fragment: ''
-            engine: php
-            custom_fragment: ''
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_chain: ''
-            ssl_certs_dir: ''
-    mod_pagespeed: 0
-nginx:
-    install: '1'
-    settings:
-        default_vhost: 1
-        proxy_buffer_size: 128k
-        proxy_buffers: '4 256k'
-    upstreams: {  }
-    vhosts:
-        hccacg30ox4d:
-            proxy: ''
-            server_name: dev.symfony-rabbit
-            www_root: /var/www/symfony-rabbit
-            listen_port: '80'
-            location: \.php$
-            index_files:
-                - index.php
-                - app.php
-            envvars:
-                - 'APP_ENV dev'
-            engine: php
-            client_max_body_size: 1m
-            ssl_cert: ''
-            ssl_key: ''
+                    provider: directory
 php:
     install: '1'
-    version: '56'
-    composer: '1'
-    composer_home: ''
+    settings:
+        version: '56'
     modules:
         php:
             - cli
@@ -157,20 +163,11 @@ php:
         display_errors: On
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
-    timezone: Europe/London
-    mod_php: 0
-hhvm:
-    install: '0'
-    nightly: 0
+    fpm_ini:
+        error_log: /var/log/php-fpm.log
+    fpm_pools: {  }
     composer: '1'
     composer_home: ''
-    settings:
-        host: 127.0.0.1
-        port: '9000'
-    ini:
-        display_errors: On
-        error_reporting: '-1'
-    timezone: null
 xdebug:
     install: '1'
     settings:
@@ -180,6 +177,20 @@ xdebug:
         xdebug.remote_enable: '1'
         xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
+blackfire:
+    install: '0'
+    settings:
+        server_id: ''
+        server_token: ''
+        agent:
+            http_proxy: ''
+            https_proxy: ''
+            log_file: stderr
+            log_level: '1'
+        php:
+            agent_timeout: '0.25'
+            log_file: ''
+            log_level: '1'
 xhprof:
     install: '0'
 wpcli:
@@ -191,57 +202,61 @@ drush:
 ruby:
     install: '1'
     versions: {  }
-nodejs:
-    install: '0'
-    npm_packages: {  }
 python:
     install: '1'
     packages: {  }
     versions: {  }
+nodejs:
+    install: '0'
+    npm_packages: {  }
+hhvm:
+    install: '0'
+    nightly: 0
+    composer: '1'
+    composer_home: ''
+    settings: {  }
+    server_ini: {  }
+    php_ini: {  }
 mysql:
     install: '1'
-    override_options: {  }
-    root_password: '123'
+    settings:
+        version: '5.6'
+        root_password: '123'
+        override_options: {  }
     adminer: 0
+    users: {  }
     databases:
-        2tg61jfyGqJ1:
-            grant:
-                - ALL
+        mysqlnd_1nds5ecj7sip:
             name: symfony-rabbit
-            host: localhost
-            user: symfony
-            password: '123'
-            sql_file: ''
+            sql: ''
+    grants: {  }
 postgresql:
     install: '0'
     settings:
-        root_password: '123'
-        user_group: postgres
-        encoding: UTF8
-        version: '9.3'
+        global:
+            encoding: UTF8
+            version: '9.3'
+        server:
+            postgres_password: ''
     databases: {  }
+    users: {  }
+    grants: {  }
     adminer: 0
-mariadb:
-    install: '0'
-    override_options: {  }
-    root_password: '123'
-    adminer: 0
-    databases: {  }
-    version: '10.0'
-sqlite:
-    install: '0'
-    adminer: 0
-    databases: {  }
 mongodb:
     install: '0'
     settings:
         auth: 1
+        bind_ip: 127.0.0.1
         port: '27017'
     databases: {  }
 redis:
     install: '0'
     settings:
         conf_port: '6379'
+sqlite:
+    install: '0'
+    adminer: 0
+    databases: {  }
 mailcatcher:
     install: '0'
     settings:
@@ -267,6 +282,9 @@ rabbitmq:
     install: '1'
     settings:
         port: '5672'
+    users: {  }
+    vhosts: {  }
+    plugins: {  }
 elastic_search:
     install: '0'
     settings:
